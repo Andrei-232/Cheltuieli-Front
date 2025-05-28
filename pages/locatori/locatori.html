@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locătari</title>
+    <link rel="stylesheet" href="locatori.css">
+</head>
+<body>
+    <header class="header">
+        <nav>
+            <ul>
+                <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
+                <li><a href="../locatori/locatori.html" style="color:rgb(96, 93, 93)">Locatari</a></li>
+                <li><a href="../apartamente/apartamente.html">Apartamente</a></li>
+                <li><a href="../servicii/servicii.html">Servicii</a></li>
+                <li><a href="../plati/plati.html">Plăți</a></li>
+                <li><a href="../rapoarte/rapoarte.html">Rapoarte</a></li>
+                <li><a href="#">Log out</a></li>
+            </ul>
+        </nav>
+    </header>
+
+<div class="container">
+    <h2>Locatari</h2>
+    <button class="add-button" onclick="openAddModal()">Adaugă</button>
+  </div>
+
+  <table class="locatari-table">
+    <thead>
+      <tr>
+        <th>Nume</th>
+        <th>CNP</th>
+        <th>Vârstă</th>
+        <th>Pensionar</th>
+        <th>Apartamente</th>
+        <th>Acțiuni</th>
+      </tr>
+    </thead>
+    <tbody id="locatari-tbody">
+    </tbody>
+  </table>
+</div>
+
+<div id="modal-form" class="modal">
+  <div class="modal-content">
+    <h3 id="modal-title">Adaugă locatar</h3>
+    <form id="locatarForm">
+      <input type="hidden" id="locatarId" />
+
+      <input type="text" id="nume" placeholder="Nume" required />
+      <input type="text" id="cnp" placeholder="CNP" required />
+      <input type="number" id="varsta" placeholder="Vârstă" required />
+
+      <select id="pensionar" required>
+        <option value="">Selectează pensionar</option>
+        <option value="true">Da</option>
+        <option value="false">Nu</option>
+      </select>
+
+      <input type="text" id="apartament" placeholder="Apartament" required />
+
+      <div class="form-buttons">
+        <button type="submit" class="btn-save">Salvează</button>
+        <button type="button" onclick="closeModal()" class="btn-cancel">Anulează</button>
+      </div>
+    </form>
+  </div>
+</div>
