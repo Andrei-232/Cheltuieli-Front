@@ -35,24 +35,6 @@ html, body {
   text-decoration: underline;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.4);
-  justify-content: center;
-  align-items: center;
-}
-
-.modal.show {
-  display: flex;
-}
-
 .modal-content {
   background-color: white;
   padding: 30px;
@@ -72,10 +54,44 @@ input, select {
   width: 100%;
 }
 
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 16px;
+}
+
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #999;
+  background-color: white;
+  padding: 0 5px;
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown):valid + label,
+.input-group input:not(:focus):not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 12px;
+  color: #29b6d1;
+}
+
 .form-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  margin-top: 10px;
 }
 
 .btn-save, .btn-cancel {
@@ -84,16 +100,6 @@ input, select {
   border: none;
   font-weight: bold;
   cursor: pointer;
-}
-
-.btn-save {
-  background-color: #29b6d1;
-  color: white;
-}
-
-.btn-cancel {
-  background-color: #f44336;
-  color: white;
 }
 
 .confirm-popup {
@@ -112,3 +118,178 @@ input, select {
   gap: 20px;
 }
 
+.locatari-table {
+  width: 90%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.locatari-table th, .locatari-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.locatari-table td {
+  border-bottom: 1px solid #ddd;
+}
+
+.locatari-table tr:not(:last-child) td {
+  border-bottom: 1px solid #eee;
+}
+
+.locatari-table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.locatari-table td {
+  background: white;
+  border-radius: 6px;
+}
+
+
+.locatari-table thead {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  margin: auto;
+}
+
+#addLocatarBtn {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 20px;
+  display: block;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+#addLocatarBtn:hover {
+  background-color: #48c8d6;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-save, .btn-cancel {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-save {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #ccc;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.styled-checkbox {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  user-select: none;
+}
+
+.styled-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.styled-checkbox .checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.styled-checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.styled-checkbox input:checked ~ .checkmark {
+  background-color: #29b6d1;
+}
+
+.styled-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.styled-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.styled-checkbox .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

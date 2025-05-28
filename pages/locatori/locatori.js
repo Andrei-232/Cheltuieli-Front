@@ -1,111 +1,107 @@
 let locatari = [];
 let editId = null;
 
-function loadApartamente(selected = null) {
-  fetch("/api/apartamente")
-    .then(res => res.json())
-    .then(data => {
-      const select = document.getElementById("apartament");
-      select.innerHTML = '<option value="">Alege apartamentul</option>';
-      data.forEach(ap => {
-        const opt = document.createElement("option");
-        opt.value = ap.id;
-        opt.textContent = `Ap. ${ap.numar}`;
-        if (ap.id === selected) opt.selected = true;
-        select.appendChild(opt);
-      });
-    });
-}
-
-function openAddModal() {
-  document.getElementById("modal-form").classList.add("show");
-  document.getElementById("modal-title").innerText = "Adaugă locatar";
-  document.getElementById("locatarForm").reset();
-  editId = null;
-  loadApartamente();
-}
-
-function openEditModal(index) {
-  const locatar = locatari[index];
-  document.getElementById("modal-form").classList.add("show");
-  document.getElementById("modal-title").innerText = "Editează locatar";
-
-  document.getElementById("nume").value = locatar.nume;
-  document.getElementById("cnp").value = locatar.cnp;
-  document.getElementById("varsta").value = locatar.varsta;
-  document.getElementById("pensionar").value = locatar.pensionar;
-
-  loadApartamente(locatar.apartament);
-
-  editId = index;
-}
-
-function closeModal() {
-  document.getElementById("modal-form").classList.remove("show");
-}
-
-if (editId !== null) {
-  fetch(`/api/locatari/${editId}`, {
-    method: "PUT",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(locatar)
-  }).then(() => {
-    locatari[editId] = locatar;
+async function fetchLocatari() {
+  try {
+    const res = await fetch("http://localhost:5000/locatari/getResidents");
+    const data = await res.json();
+    locatari = data.locatari;
     renderTable();
-    closeModal();
-  });
-} else {
-  fetch("/api/locatari", {
-    method: "POST",
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(locatar)
-  }).then(() => {
-    locatari.push(locatar);
-    renderTable();
-    closeModal();
-  });
-}
-
-function deleteLocatar(index) {
-  const popup = document.createElement("div");
-  popup.className = "confirm-popup";
-  popup.innerHTML = `
-    <p>Sunteți sigur că vreți să ștergeți acest locătar?</p>
-    <div>
-      <button class="btn-save" onclick="confirmDelete(${index}, this)">Da</button>
-      <button class="btn-cancel" onclick="this.parentElement.parentElement.remove()">Nu</button>
-    </div>
-  `;
-  document.body.appendChild(popup);
-}
-
-function confirmDelete(index, btn) {
-  locatari.splice(index, 1);
-  renderTable();
-  btn.closest(".confirm-popup").remove();
+  } catch (err) {
+    console.error("Eroare la încărcarea locatarilor:", err);
+  }
 }
 
 function renderTable() {
-  const tbody = document.getElementById("locatari-tbody");
-  tbody.innerHTML = "";
+  const tableBody = document.getElementById("locatariTableBody");
+  tableBody.innerHTML = "";
 
   locatari.forEach((locatar, index) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
+    const row = document.createElement("tr");
+    row.innerHTML = `
       <td>${locatar.nume}</td>
       <td>${locatar.cnp}</td>
       <td>${locatar.varsta}</td>
-      <td>${locatar.pensionar ? 'Da' : 'Nu'}</td>
+      <td>${locatar.pensionar ? "Da" : "Nu"}</td>
       <td>${locatar.apartament}</td>
       <td>
-        <button onclick="openEditModal(${index})">✏️</button>
-        <button onclick="deleteLocatar(${index})">🗑️</button>
+        <button class="editBtn" onclick="editLocatar(${index})">Editează</button>
+        <button class="deleteBtn" onclick="deleteLocatar(${index})">Șterge</button>
       </td>
     `;
-    tbody.appendChild(tr);
+    tableBody.appendChild(row);
   });
 }
 
-document.getElementById("locatarForm").addEventListener("submit", saveLocatar);
+function openModal() {
+  document.getElementById("modal").classList.add("show");
+}
 
-renderTable();
+function closeModal() {
+  document.getElementById("modal").classList.remove("show");
+  document.getElementById("locatarForm").reset();
+  editId = null;
+}
+
+function editLocatar(index) {
+  const locatar = locatari[index];
+  document.getElementById("nume").value = locatar.nume;
+  document.getElementById("cnp").value = locatar.cnp;
+  document.getElementById("varsta").value = locatar.varsta;
+  document.getElementById("pensionar").checked = locatar.pensionar;
+  document.getElementById("apartament").value = locatar.apartament;
+  editId = index;
+  openModal();
+}
+
+async function deleteLocatar(index) {
+  if (!confirm("Sigur vrei să ștergi acest locatar?")) return;
+
+  const cnp = locatari[index].cnp;
+  try {
+    await fetch("http://localhost:5000/locatari/delete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cnp })
+    });
+    fetchLocatari();
+  } catch (err) {
+    console.error("Eroare la ștergere:", err);
+  }
+}
+
+async function saveLocatar(e) {
+  e.preventDefault();
+
+  const locatar = {
+    nume: document.getElementById("nume").value,
+    cnp: document.getElementById("cnp").value,
+    varsta: parseInt(document.getElementById("varsta").value),
+    pensionar: document.getElementById("pensionar").checked,
+    apartament: document.getElementById("apartament").value
+  };
+
+  const endpoint = editId !== null ? "/locatari/update" : "/locatari/add";
+
+  try {
+    await fetch("http://localhost:5000" + endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(locatar)
+    });
+    closeModal();
+    fetchLocatari();
+  } catch (err) {
+    console.error("Eroare la salvare:", err);
+  }
+}
+
+document.getElementById("addLocatarBtn").addEventListener("click", () => {
+  editId = null;
+  openModal();
+});
+
+document.getElementById("locatarForm").addEventListener("submit", saveLocatar);
+document.getElementById("closeModal").addEventListener("click", closeModal);
+
+window.onload = fetchLocatari;

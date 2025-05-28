@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Locătari</title>
-    <link rel="stylesheet" href="locatori.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locatari</title>
+  <link rel="stylesheet" href="locatori.css">
 </head>
 <body>
-    <header class="header">
-        <nav>
-            <ul>
-                <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
-                <li><a href="../locatori/locatori.html" style="color:rgb(96, 93, 93)">Locatari</a></li>
-                <li><a href="../apartamente/apartamente.html">Apartamente</a></li>
-                <li><a href="../servicii/servicii.html">Servicii</a></li>
-                <li><a href="../plati/plati.html">Plăți</a></li>
-                <li><a href="../rapoarte/rapoarte.html">Rapoarte</a></li>
-                <li><a href="#">Log out</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="header">
+    <nav>
+      <ul>
+        <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
+        <li><a href="../locatori/locatori.html" style="color:rgb(96, 93, 93)">Locatari</a></li>
+        <li><a href="../apartamente/apartamente.html">Apartamente</a></li>
+        <li><a href="../servicii/servicii.html">Servicii</a></li>
+        <li><a href="../plati/plati.html">Plăți</a></li>
+        <li><a href="../rapoarte/rapoarte.html">Rapoarte</a></li>
+        <li><a href="#">Log out</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<div class="container">
-    <h2>Locatari</h2>
-    <button class="add-button" onclick="openAddModal()">Adaugă</button>
+  <div class="container">
+    <button id="addLocatarBtn" class="add-button">Adaugă</button>
   </div>
 
   <table class="locatari-table">
@@ -34,36 +33,43 @@
         <th>Vârstă</th>
         <th>Pensionar</th>
         <th>Apartamente</th>
-        <th>Acțiuni</th>
+        <th></th>
       </tr>
     </thead>
-    <tbody id="locatari-tbody">
+    <tbody id="locatariTableBody">
     </tbody>
   </table>
+
+  <div id="modal" class="modal">
+  <form id="locatarForm" class="modal-content">
+    <h3 id="modal-title">Adaugă locătar</h3>
+    <div class="input-group">
+      <input type="text" id="nume" required placeholder=" " />
+      <label for="nume">Nume</label>
+    </div>
+    <div class="input-group">
+      <input type="text" id="cnp" required placeholder=" " />
+      <label for="cnp">CNP</label>
+    </div>
+    <div class="input-group">
+      <input type="number" id="varsta" required placeholder=" " />
+      <label for="varsta">Vârstă</label>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" id="pensionar" />
+      <label for="pensionar">Pensionar</label>
+    </div>
+    <div class="input-group">
+      <input type="text" id="apartament" required placeholder=" " />
+      <label for="apartament">Apartament</label>
+    </div>
+    <div class="form-buttons">
+      <button type="submit" class="btn-save">Salvează</button>
+      <button type="button" id="closeModal" class="btn-cancel">Anulează</button>
+    </div>
+  </form>
 </div>
 
-<div id="modal-form" class="modal">
-  <div class="modal-content">
-    <h3 id="modal-title">Adaugă locatar</h3>
-    <form id="locatarForm">
-      <input type="hidden" id="locatarId" />
-
-      <input type="text" id="nume" placeholder="Nume" required />
-      <input type="text" id="cnp" placeholder="CNP" required />
-      <input type="number" id="varsta" placeholder="Vârstă" required />
-
-      <select id="pensionar" required>
-        <option value="">Selectează pensionar</option>
-        <option value="true">Da</option>
-        <option value="false">Nu</option>
-      </select>
-
-      <input type="text" id="apartament" placeholder="Apartament" required />
-
-      <div class="form-buttons">
-        <button type="submit" class="btn-save">Salvează</button>
-        <button type="button" onclick="closeModal()" class="btn-cancel">Anulează</button>
-      </div>
-    </form>
-  </div>
-</div>
+  <script src="locatori.js"></script>
+</body>
+</html>
