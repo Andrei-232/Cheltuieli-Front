@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apartamente</title>
     <link rel="stylesheet" href="apartamente.css">
 </head>
@@ -20,7 +19,28 @@
             </ul>
         </nav>
     </header>
-    
+
+    <form id="apartmentForm">
+        <input type="text" id="numar" placeholder="Numărul apartamentului" required>
+        <label><input type="checkbox" id="incCentr"> Încălzire centralizată</label>
+        <label><input type="checkbox" id="incAuto"> Încălzire autonomă</label>
+        <input type="text" id="locatar" placeholder="Locatar asociat" required>
+        <button type="submit">Salvează</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Număr</th>
+                <th>Centralizată</th>
+                <th>Autonomă</th>
+                <th>Locatar</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="apartamenteTable"></tbody>
+    </table>
+
     <div class="footer"></div>
     <script src="apartamente.js"></script>
 </body>

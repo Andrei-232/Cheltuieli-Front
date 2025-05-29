@@ -3,7 +3,7 @@ let editId = null;
 
 async function fetchLocatari() {
   try {
-    const res = await fetch("http://localhost:5000/locatari/getResidents");
+    const res = await fetch("http://127.0.0.1:5176/locatari/getResidents");
     const data = await res.json();
     locatari = data.locatari;
     renderTable();
@@ -25,8 +25,12 @@ function renderTable() {
       <td>${locatar.pensionar ? "Da" : "Nu"}</td>
       <td>${locatar.apartament}</td>
       <td>
-        <button class="editBtn" onclick="editLocatar(${index})">Editează</button>
-        <button class="deleteBtn" onclick="deleteLocatar(${index})">Șterge</button>
+        <button class="btn-icon" onclick="editLocatar(${index})">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="btn-icon" onclick="deleteLocatar(${index})">
+          <i class="fas fa-trash-alt"></i>
+        </button>
       </td>
     `;
     tableBody.appendChild(row);
@@ -59,7 +63,7 @@ async function deleteLocatar(index) {
 
   const cnp = locatari[index].cnp;
   try {
-    await fetch("http://localhost:5000/locatari/delete", {
+    await fetch("http://127.0.0.1:5176/locatari/delete", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cnp })
@@ -84,7 +88,7 @@ async function saveLocatar(e) {
   const endpoint = editId !== null ? "/locatari/update" : "/locatari/add";
 
   try {
-    await fetch("http://localhost:5000" + endpoint, {
+    await fetch("http://127.0.0.1:5176" + endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(locatar)

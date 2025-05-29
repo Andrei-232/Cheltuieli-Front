@@ -293,3 +293,15 @@ input, select {
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 1.2em;
+  color: #444;
+}
+.btn-icon:hover {
+  color: #007bff;
+}
