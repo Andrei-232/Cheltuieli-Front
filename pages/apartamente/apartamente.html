@@ -22,26 +22,31 @@
 
     <form id="apartmentForm">
         <input type="text" id="numar" placeholder="Numărul apartamentului" required>
+        <input type="text" id="etaj" placeholder="Etajul apartamentului" required>
+        <input type="text" id="suprafata" placeholder="Suprafața" required>
+        <input type="text" id="numar_camere" placeholder="Numărul de camere" required>
+        <input type="text" id="bloc" placeholder="Blocul" required>
         <label><input type="checkbox" id="incCentr"> Încălzire centralizată</label>
         <label><input type="checkbox" id="incAuto"> Încălzire autonomă</label>
-        <input type="text" id="locatar" placeholder="Locatar asociat" required>
         <button type="submit">Salvează</button>
     </form>
 
-    <table>
+    <table class="apartamente-table">
         <thead>
             <tr>
-                <th>Număr</th>
+                <th>Numărul</th>
+                <th>Etajul</th>
+                <th>Suprafața</th>
+                <th>Numărul de camere</th>
+                <th>Blocul</th>
                 <th>Centralizată</th>
                 <th>Autonomă</th>
-                <th>Locatar</th>
                 <th></th>
             </tr>
         </thead>
         <tbody id="apartamenteTable"></tbody>
     </table>
 
-    <div class="footer"></div>
     <script src="apartamente.js"></script>
 </body>
 </html>

@@ -8,7 +8,8 @@ html, body {
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
 }
 
@@ -35,13 +36,6 @@ body {
     color: white;
     text-decoration: none;
     font-weight: bold;
-}
-
-.footer {
-    height: 40px;
-    background-color: #29b6d1;
-    text-align: center;
-    color: white;
 }
 
 .container {
