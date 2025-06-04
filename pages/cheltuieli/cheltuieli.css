@@ -1,69 +1,137 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #f0f0f0;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #f0f0f0;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .header {
-    background-color: #29b6d1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 30px;
+  background-color: #29b6d1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
 }
 
 .header nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 
 .header nav ul li {
-    display: inline;
-    margin-right: 20px;
+  display: inline;
+  margin-right: 20px;
 }
 
 .header nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-.container {
-    width: 70%;
-    margin: 0 auto;
+.main-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.stats {
-    margin-top: 30px;
-    padding: 20px;
+.chart-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 500px;
 }
 
-.stat-item {
-    background-color: white;
-    margin-bottom: 20px;
+.stats-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.stat-card h3 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #29b6d1;
+}
+
+#platiChart {
+  max-height: 460px;
+}
+
+@media (max-width: 768px) {
+  .header {
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .header nav ul li {
+    display: block;
+    margin: 5px 0;
+    text-align: center;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  .chart-container {
+    height: 400px;
+    padding: 15px;
+  }
+
+  .stats-container {
+    flex-direction: column;
+  }
 }
 
-.stat-item p {
-    font-size: 18px;
-    color: #555;
+.controls-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.stat-item h2 {
-    font-size: 30px;
-    font-weight: bold;
-    color: #333;
+.refresh-btn {
+  background-color: #29b6d1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.refresh-btn:hover {
+  background-color: #238a9d;
 }

@@ -6,6 +6,7 @@
     <title>Cheltuieli Bloc</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="cheltuieli.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header class="header">
@@ -19,6 +20,27 @@
             </ul>
         </nav>
     </header>
+
+    <main class="main-content">
+        <div class="chart-container">
+            <canvas id="platiChart"></canvas>
+        </div>
+
+        <div class="controls-container">
+            <button onclick="refreshChart()" class="refresh-btn">🔄 Actualizează Diagrama</button>
+        </div>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <h3>Total Apartamente</h3>
+                <p id="total-apartamente">-</p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Plăți</h3>
+                <p id="total-plati">-</p>
+            </div>
+        </div>
+    </main>
 
     <script src="cheltuieli.js"></script>
 </body>
