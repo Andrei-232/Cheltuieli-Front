@@ -1,53 +1,102 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <title>Servicii</title>
-    <link rel="stylesheet" href="servicii.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicii</title>
+  <link rel="stylesheet" href="servicii.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header class="header">
-        <nav>
-            <ul>
-                <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
-                <li><a href="../locatori/locatori.html">Locatari</a></li>
-                <li><a href="../apartamente/apartamente.html">Apartamente</a></li>
-                <li><a href="../servicii/servicii.html" style="color:rgb(96, 93, 93)">Servicii</a></li>
-                <li><a href="../plati/plati.html">Plăți</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="header">
+    <nav>
+      <ul>
+        <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
+        <li><a href="../locatori/locatori.html">Locatari</a></li>
+        <li><a href="../apartamente/apartamente.html">Apartamente</a></li>
+        <li><a href="../servicii/servicii.html" style="color:rgb(96, 93, 93)">Servicii</a></li>
+        <li><a href="../plati/plati.html">Plăți</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div id="serviceFormContainer" class="modal-content" style="display: none;">
-        <form id="serviceForm">
-            <div class="form-group">
-                <input type="text" id="nume" placeholder="Nume serviciu" required />
-            </div>
-            <div class="form-group">
-                <input type="text" id="cod" placeholder="Cod serviciu" required />
-            </div>
-            <div class="form-buttons">
-                <button type="submit" class="btn-save">Salvează</button>
-                <button type="button" id="cancelBtn">Anulează</button>
-            </div>
-        </form>
-    </div>
+  <div class="container">
+    <button id="addServiciuBtn" class="add-button">
+      <i class="fas fa-plus"></i> Adaugă Serviciu
+    </button>
+  </div>
 
-    <div class="top-controls">
-       <button id="addBtn" class="btn-add">Adaugă serviciu</button>
-    </div>
-
+  <div class="table-container">
     <table class="servicii-table">
-        <thead>
-            <tr>
-                <th>Nume</th>
-                <th>Cod</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="serviciiTable"></tbody>
+      <thead>
+        <tr>
+          <th>Nume Serviciu</th>
+          <th>Cod Serviciu</th>
+          <th>Acțiuni</th>
+        </tr>
+      </thead>
+      <tbody id="serviciiTableBody">
+        <tr>
+          <td colspan="3" class="loading">Se încarcă datele...</td>
+        </tr>
+      </tbody>
     </table>
+  </div>
 
-    <script src="servicii.js"></script>
+  <!-- Modal pentru adăugare/editare -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Adaugă Serviciu</h3>
+        <button type="button" class="close-btn" id="closeModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form id="serviciuForm">
+        <div class="form-body">
+          <div class="input-group">
+            <input type="text" id="nume" required placeholder=" " />
+            <label for="nume">Nume serviciu</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="text" id="cod" required placeholder=" " />
+            <label for="cod">Cod serviciu</label>
+          </div>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Salvează
+          </button>
+          <button type="button" id="cancelBtn" class="btn-cancel">
+            <i class="fas fa-times"></i> Anulează
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal pentru confirmare ștergere -->
+  <div id="confirmModal" class="modal">
+    <div class="confirm-content">
+      <div class="confirm-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3>Confirmare ștergere</h3>
+      <p>Sigur vrei să ștergi acest serviciu?</p>
+      <div class="confirm-buttons">
+        <button id="confirmDelete" class="btn-delete">
+          <i class="fas fa-trash"></i> Șterge
+        </button>
+        <button id="cancelDelete" class="btn-cancel">
+          <i class="fas fa-times"></i> Anulează
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="servicii.js"></script>
 </body>
 </html>
