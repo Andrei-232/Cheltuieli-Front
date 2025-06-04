@@ -1,8 +1,23 @@
+const formContainer = document.getElementById("apartmentFormContainer");
 const form = document.getElementById("apartmentForm");
+const addBtn = document.getElementById("addBtn");
 const table = document.getElementById("apartamenteTable");
+const cancelBtn = document.getElementById("cancelBtn");
 
 let apartamente = [];
 let editId = null;
+
+addBtn.addEventListener("click", () => {
+  editId = null;
+  form.reset();
+  formContainer.style.display = "block";
+});
+
+cancelBtn.addEventListener("click", () => {
+  form.reset();
+  formContainer.style.display = "none";
+  editId = null;
+});
 
 async function fetchApartamente() {
   const res = await fetch("http://127.0.0.1:5176/apartamente");
@@ -12,11 +27,15 @@ async function fetchApartamente() {
 
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
+
   const apt = {
     numar: document.getElementById("numar").value,
+    etaj: document.getElementById("etaj").value,
+    suprafata: document.getElementById("suprafata").value,
+    numarCamere: document.getElementById("numar_camere").value,
+    bloc: document.getElementById("bloc").value,
     incalzireCentralizata: document.getElementById("incCentr").checked,
-    incalzireAutonoma: document.getElementById("incAuto").checked,
-    locatar: document.getElementById("locatar").value,
+    incalzireAutonoma: document.getElementById("incAuto").checked
   };
 
   if (editId === null) {
@@ -35,6 +54,7 @@ form.addEventListener("submit", async function (e) {
   }
 
   form.reset();
+  formContainer.style.display = "none";
   await fetchApartamente();
 });
 
@@ -44,9 +64,12 @@ function renderTable() {
     const row = document.createElement("tr");
     row.innerHTML = `
       <td>${apt.numar}</td>
+      <td>${apt.etaj}</td>
+      <td>${apt.suprafata}</td>
+      <td>${apt.numarCamere}</td>
+      <td>${apt.bloc}</td>
       <td>${apt.incalzireCentralizata ? "✔" : "✘"}</td>
       <td>${apt.incalzireAutonoma ? "✔" : "✘"}</td>
-      <td>${apt.locatar}</td>
       <td>
         <button onclick="editApartment(${apt.id})">Editare</button>
         <button onclick="deleteApartment(${apt.id})">Ștergere</button>
@@ -60,10 +83,14 @@ function editApartment(id) {
   const apt = apartamente.find((a) => a.id === id);
   if (apt) {
     document.getElementById("numar").value = apt.numar;
+    document.getElementById("etaj").value = apt.etaj;
+    document.getElementById("suprafata").value = apt.suprafata;
+    document.getElementById("numar_camere").value = apt.numarCamere;
+    document.getElementById("bloc").value = apt.bloc;
     document.getElementById("incCentr").checked = apt.incalzireCentralizata;
     document.getElementById("incAuto").checked = apt.incalzireAutonoma;
-    document.getElementById("locatar").value = apt.locatar;
     editId = id;
+    formContainer.style.display = "block";
   }
 }
 

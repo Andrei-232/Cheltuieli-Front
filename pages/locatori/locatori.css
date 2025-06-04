@@ -85,9 +85,9 @@ input, select {
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown):valid + label,
 .input-group input:not(:focus):not(:placeholder-shown) + label {
-  top: -8px;
+  top: -2px;
   font-size: 12px;
-  color: #29b6d1;
+  color: #000000;
 }
 
 .form-buttons {

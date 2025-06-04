@@ -14,22 +14,50 @@
                 <li><a href="../apartamente/apartamente.html" style="color:rgb(96, 93, 93)">Apartamente</a></li>
                 <li><a href="../servicii/servicii.html">Servicii</a></li>
                 <li><a href="../plati/plati.html">Plăți</a></li>
-                <li><a href="../rapoarte/rapoarte.html">Rapoarte</a></li>
-                <li><a href="#">Log out</a></li>
             </ul>
         </nav>
     </header>
 
-    <form id="apartmentForm">
-        <input type="text" id="numar" placeholder="Numărul apartamentului" required>
-        <input type="text" id="etaj" placeholder="Etajul apartamentului" required>
-        <input type="text" id="suprafata" placeholder="Suprafața" required>
-        <input type="text" id="numar_camere" placeholder="Numărul de camere" required>
-        <input type="text" id="bloc" placeholder="Blocul" required>
-        <label><input type="checkbox" id="incCentr"> Încălzire centralizată</label>
-        <label><input type="checkbox" id="incAuto"> Încălzire autonomă</label>
-        <button type="submit">Salvează</button>
-    </form>
+    <!-- Adăugat ID pentru containerul formularului -->
+    <div id="apartmentFormContainer" class="modal-content" style="display: none;">
+        <form id="apartmentForm">
+            <div class="form-group">
+                <input type="text" id="numar" placeholder="Număr apartament" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="etaj" placeholder="Etajul apartamentului" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="suprafata" placeholder="Suprafața" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="numar_camere" placeholder="Numărul de camere" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="bloc" placeholder="Blocul" required>
+            </div>
+            <div class="form-group checkbox-group">
+                <label class="styled-checkbox">
+                    <input type="checkbox" id="incCentr">
+                    <span class="checkmark"></span>
+                    Încălzire centralizată
+                </label>
+                <label class="styled-checkbox">
+                    <input type="checkbox" id="incAuto">
+                    <span class="checkmark"></span>
+                    Încălzire autonomă
+                </label>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save">Salvează</button>
+                <button type="button" id="cancelBtn">Anulează</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="top-controls">
+       <button id="addBtn" class="btn-add">Adaugă apartament</button>
+    </div>
 
     <table class="apartamente-table">
         <thead>

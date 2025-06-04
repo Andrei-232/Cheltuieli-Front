@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background-color: #f0f0f0;
 }
 
 .header {
@@ -78,9 +79,9 @@ input, select {
 .input-group input:focus + label,
 .input-group input:not(:placeholder-shown):valid + label,
 .input-group input:not(:focus):not(:placeholder-shown) + label {
-  top: -8px;
+  top: -2px;
   font-size: 12px;
-  color: #29b6d1;
+  color: #000000;
 }
 
 .form-buttons {
@@ -159,7 +160,7 @@ input, select {
   margin: auto;
 }
 
-#addLocatarBtn {
+#addBtn {
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   padding: 10px 20px;
@@ -173,7 +174,7 @@ input, select {
   transition: background-color 0.2s;
 }
 
-#addLocatarBtn:hover {
+#addBtn:hover {
   background-color: #48c8d6;
 }
 
