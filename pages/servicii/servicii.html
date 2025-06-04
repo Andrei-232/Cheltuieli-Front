@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicii</title>
     <link rel="stylesheet" href="servicii.css">
 </head>
@@ -18,8 +17,37 @@
             </ul>
         </nav>
     </header>
-    
-    <div class="footer"></div>
+
+    <div id="serviceFormContainer" class="modal-content" style="display: none;">
+        <form id="serviceForm">
+            <div class="form-group">
+                <input type="text" id="nume" placeholder="Nume serviciu" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="cod" placeholder="Cod serviciu" required />
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn-save">Salvează</button>
+                <button type="button" id="cancelBtn">Anulează</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="top-controls">
+       <button id="addBtn" class="btn-add">Adaugă serviciu</button>
+    </div>
+
+    <table class="servicii-table">
+        <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Cod</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="serviciiTable"></tbody>
+    </table>
+
     <script src="servicii.js"></script>
 </body>
 </html>
