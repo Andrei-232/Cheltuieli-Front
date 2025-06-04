@@ -146,9 +146,6 @@ function renderTable() {
         <button class="btn-icon edit" onclick="editPlata(${index})" title="Editează">
           <i class="fas fa-edit"></i>
         </button>
-        <button class="btn-icon delete" onclick="confirmDeletePlata(${index})" title="Șterge">
-          <i class="fas fa-trash-alt"></i>
-        </button>
       </td>
     `
     tableBody.appendChild(row)

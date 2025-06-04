@@ -1,4 +1,3 @@
-import { Chart } from "@/components/ui/chart"
 // JavaScript simplu pentru cheltuieli.html - FĂRĂ IMPORT STATEMENTS
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Pagina s-a încărcat, încep să încarc datele...")
@@ -85,6 +84,7 @@ function createChart(apiData) {
 
   var ctx = document.getElementById("platiChart").getContext("2d")
 
+  // Numele lunilor în română
   var luni = [
     "Ianuarie",
     "Februarie",
@@ -100,19 +100,23 @@ function createChart(apiData) {
     "Decembrie",
   ]
 
+  // Culori diferite pentru fiecare apartament
   var culori = [
-    "#FF6384",
-    "#36A2EB",
-    "#FFCE56",
-    "#4BC0C0",
-    "#9966FF",
-    "#FF9F40",
-    "#FF6B6B",
-    "#4ECDC4",
-    "#45B7D1",
-    "#96CEB4",
-    "#FFEAA7",
-    "#DDA0DD",
+    "#FF6384", // Roz
+    "#36A2EB", // Albastru
+    "#FFCE56", // Galben
+    "#4BC0C0", // Turcoaz
+    "#9966FF", // Violet
+    "#FF9F40", // Portocaliu
+    "#FF6B6B", // Roșu deschis
+    "#4ECDC4", // Verde-albastru
+    "#45B7D1", // Albastru deschis
+    "#96CEB4", // Verde mentă
+    "#FFEAA7", // Galben deschis
+    "#DDA0DD", // Violet deschis
+    "#87CEEB", // Albastru cer
+    "#F0E68C", // Khaki
+    "#FFB6C1", // Roz deschis
   ]
 
   var datasets = []
@@ -120,17 +124,27 @@ function createChart(apiData) {
   if (apiData && apiData.apartamente && apiData.apartamente.length > 0) {
     console.log("Folosesc datele de la API")
 
+    // Creez un dataset pentru fiecare apartament
     for (var i = 0; i < apiData.apartamente.length; i++) {
       var apt = apiData.apartamente[i]
+      var culoare = culori[i % culori.length]
+
       datasets.push({
         label: "Apartament Nr." + apt.numar,
         data: apt.plati,
-        borderColor: culori[i % culori.length],
-        backgroundColor: culori[i % culori.length] + "20",
-        tension: 0.4,
+        borderColor: culoare,
+        backgroundColor: culoare + "20", // Transparență 20%
+        tension: 0.4, // Linii curbate
         fill: false,
-        pointRadius: 5,
-        pointHoverRadius: 8,
+        pointRadius: 6,
+        pointHoverRadius: 10,
+        pointBackgroundColor: culoare,
+        pointBorderColor: "#fff",
+        pointBorderWidth: 2,
+        pointHoverBackgroundColor: "#fff",
+        pointHoverBorderColor: culoare,
+        pointHoverBorderWidth: 3,
+        borderWidth: 3,
       })
     }
   } else {
@@ -150,7 +164,7 @@ function createChart(apiData) {
     existingChart.destroy()
   }
 
-  // Creează noua diagramă
+  // Creează noua diagramă Line Chart
   new Chart(ctx, {
     type: "line",
     data: chartData,
@@ -162,10 +176,11 @@ function createChart(apiData) {
           display: true,
           text: "Raport de plăți per lună",
           font: {
-            size: 18,
+            size: 20,
             weight: "bold",
           },
-          padding: 20,
+          padding: 25,
+          color: "#333",
         },
         legend: {
           display: true,
@@ -173,14 +188,28 @@ function createChart(apiData) {
           labels: {
             usePointStyle: true,
             padding: 20,
+            font: {
+              size: 12,
+            },
+            color: "#333",
           },
         },
         tooltip: {
           mode: "point",
           intersect: false,
+          backgroundColor: "rgba(0,0,0,0.8)",
+          titleColor: "#fff",
+          bodyColor: "#fff",
+          borderColor: "#ddd",
+          borderWidth: 1,
+          cornerRadius: 6,
+          displayColors: true,
           callbacks: {
-            title: (context) => context[0].label,
-            label: (context) => context.dataset.label + ": " + context.parsed.y + " lei",
+            title: (context) => {
+              return context[0].label // Numele lunii
+            },
+            label: (context) => context.dataset.label + ": " + context.parsed.y.toLocaleString() + " lei",
+            afterLabel: (context) => "Luna: " + context.label,
           },
         },
       },
@@ -194,10 +223,19 @@ function createChart(apiData) {
               size: 14,
               weight: "bold",
             },
+            color: "#666",
           },
           grid: {
             display: true,
             color: "#e0e0e0",
+            lineWidth: 1,
+          },
+          ticks: {
+            font: {
+              size: 11,
+            },
+            color: "#666",
+            maxRotation: 45,
           },
         },
         y: {
@@ -209,14 +247,25 @@ function createChart(apiData) {
               size: 14,
               weight: "bold",
             },
+            color: "#666",
           },
           min: 0,
+          // Eliminat max: 50 pentru a permite scalare automată
           ticks: {
-            stepSize: 50,
+            stepSize: 500, // Pas de 500 lei pentru valori mari
+            font: {
+              size: 11,
+            },
+            color: "#666",
+            callback: (value) => {
+              // Formatează valorile mari cu separatori de mii
+              return value.toLocaleString() + " lei"
+            },
           },
           grid: {
             display: true,
             color: "#e0e0e0",
+            lineWidth: 1,
           },
         },
       },
@@ -228,8 +277,15 @@ function createChart(apiData) {
       elements: {
         point: {
           hoverBackgroundColor: "#fff",
-          hoverBorderWidth: 2,
+          hoverBorderWidth: 3,
         },
+        line: {
+          borderWidth: 3,
+        },
+      },
+      animation: {
+        duration: 1000,
+        easing: "easeInOutQuart",
       },
     },
   })
@@ -238,6 +294,8 @@ function createChart(apiData) {
 function refreshChart() {
   console.log("Refresh diagrama...")
   loadChartData()
+  loadTotalApartments()
+  loadTotalPlati()
 }
 
 function testAPI() {
@@ -247,9 +305,13 @@ function testAPI() {
   loadChartData()
 }
 
-// Expune funcțiile pentru debugging
 window.refreshChart = refreshChart
 window.testAPI = testAPI
 
-// Test simplu pentru a verifica dacă JavaScript-ul se încarcă
 console.log("JavaScript-ul cheltuieli.js s-a încărcat cu succes!")
+console.log("Diagrama Line Chart este configurată pentru:")
+console.log("- Axa X: 12 luni în română")
+console.log("- Axa Y: Valori automate cu formatare pentru mii de lei")
+console.log("- Titlu: 'Raport de plăți per lună'")
+console.log("- Linii colorate pentru fiecare apartament")
+console.log("- Tooltip cu numărul apartamentului la hover")
