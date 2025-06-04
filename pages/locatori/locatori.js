@@ -144,12 +144,6 @@ function closeModal() {
   if (form) form.reset()
   editIndex = null
   clearValidationErrors()
-
-  // Resetează CNP-ul să nu mai fie disabled
-  const cnpInput = document.getElementById("cnp")
-  if (cnpInput) {
-    cnpInput.disabled = false
-  }
 }
 
 function openConfirmModal() {
@@ -172,13 +166,6 @@ function closeConfirmModal() {
 // Funcții CRUD
 function addLocatar() {
   editIndex = null
-
-  // Asigură-te că CNP-ul nu este disabled pentru adăugare
-  const cnpInput = document.getElementById("cnp")
-  if (cnpInput) {
-    cnpInput.disabled = false
-  }
-
   openModal("Adaugă Locatar")
 }
 
@@ -205,7 +192,6 @@ function editLocatar(index) {
   // Populează câmpurile cu datele locatarului
   numeInput.value = locatar.nume || ""
   cnpInput.value = locatar.cnp || ""
-  cnpInput.disabled = true // CNP nu se modifică la editare
   varstaInput.value = locatar.varsta || ""
   pensionarInput.checked = locatar.pensionar || false
   apartamentSelect.value = locatar.apartament || ""
@@ -300,9 +286,13 @@ async function saveLocatar(event) {
     const result = await response.json()
     console.log("Rezultat salvare:", result)
 
-    closeModal()
-    showSuccess(`Locatar ${isEdit ? "editat" : "adăugat"} cu succes!`)
-    await fetchLocatari()
+    if (result.success) {
+      closeModal()
+      showSuccess(`Locatar ${isEdit ? "editat" : "adăugat"} cu succes!`)
+      await fetchLocatari()
+    } else {
+      showError(result.error || "Eroare necunoscută")
+    }
   } catch (error) {
     console.error("Eroare la salvare:", error)
     showError(`Eroare la ${isEdit ? "editarea" : "adăugarea"} locatarului!`)
@@ -464,7 +454,6 @@ function initializeApp() {
   if (confirmDeleteBtn) confirmDeleteBtn.addEventListener("click", deleteLocatar)
   if (cancelDeleteBtn) cancelDeleteBtn.addEventListener("click", closeConfirmModal)
 
-  // Închidere modal la click pe backdrop
   if (modal) {
     modal.addEventListener("click", function (e) {
       if (e.target === this) {
@@ -481,7 +470,6 @@ function initializeApp() {
     })
   }
 
-  // Închidere modal cu ESC
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
       closeModal()
@@ -489,7 +477,6 @@ function initializeApp() {
     }
   })
 
-  // Încărcare inițială
   fetchApartments().then(() => {
     fetchLocatari()
   })
