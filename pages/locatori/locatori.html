@@ -21,53 +21,104 @@
   </header>
 
   <div class="container">
-    <button id="addLocatarBtn" class="add-button">Adaugă</button>
+    <button id="addLocatarBtn" class="add-button">
+      <i class="fas fa-plus"></i> Adaugă Locatar
+    </button>
   </div>
 
-  <table class="locatari-table">
-    <thead>
-      <tr>
-        <th>Nume</th>
-        <th>CNP</th>
-        <th>Vârstă</th>
-        <th>Pensionar</th>
-        <th>Apartamente</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="locatariTableBody">
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table class="locatari-table">
+      <thead>
+        <tr>
+          <th>Nume</th>
+          <th>CNP</th>
+          <th>Vârstă</th>
+          <th>Pensionar</th>
+          <th>Apartament</th>
+          <th>Acțiuni</th>
+        </tr>
+      </thead>
+      <tbody id="locatariTableBody">
+        <tr>
+          <td colspan="6" class="loading">Se încarcă datele...</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
+  <!-- Modal pentru adăugare/editare -->
   <div id="modal" class="modal">
-  <form id="locatarForm" class="modal-content">
-    <h3 id="modal-title">Adaugă locătar</h3>
-    <div class="input-group">
-      <input type="text" id="nume" required placeholder=" " />
-      <label for="nume">Nume</label>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Adaugă Locatar</h3>
+        <button type="button" class="close-btn" id="closeModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form id="locatarForm">
+        <div class="form-body">
+          <div class="input-group">
+            <input type="text" id="nume" required placeholder=" " />
+            <label for="nume">Nume complet</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="text" id="cnp" required placeholder=" " maxlength="13" />
+            <label for="cnp">CNP</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="number" id="varsta" required placeholder=" " min="1" max="120" />
+            <label for="varsta">Vârstă</label>
+          </div>
+          
+          <div class="select-group">
+            <select id="apartament" required>
+              <option value="">Selectează apartamentul...</option>
+            </select>
+            <label for="apartament">Apartament</label>
+          </div>
+          
+          <div class="checkbox-group">
+            <label class="styled-checkbox">
+              <input type="checkbox" id="pensionar" />
+              <span class="checkmark"></span>
+              Pensionar
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Salvează
+          </button>
+          <button type="button" id="cancelBtn" class="btn-cancel">
+            <i class="fas fa-times"></i> Anulează
+          </button>
+        </div>
+      </form>
     </div>
-    <div class="input-group">
-      <input type="text" id="cnp" required placeholder=" " />
-      <label for="cnp">CNP</label>
+  </div>
+
+  <!-- Modal pentru confirmare ștergere -->
+  <div id="confirmModal" class="modal">
+    <div class="confirm-content">
+      <div class="confirm-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3>Confirmare ștergere</h3>
+      <p>Sigur vrei să ștergi acest locatar?</p>
+      <div class="confirm-buttons">
+        <button id="confirmDelete" class="btn-delete">
+          <i class="fas fa-trash"></i> Șterge
+        </button>
+        <button id="cancelDelete" class="btn-cancel">
+          <i class="fas fa-times"></i> Anulează
+        </button>
+      </div>
     </div>
-    <div class="input-group">
-      <input type="number" id="varsta" required placeholder=" " />
-      <label for="varsta">Vârstă</label>
-    </div>
-    <div class="input-group">
-      <input type="text" id="apartament" required placeholder=" " />
-      <label for="apartament">Apartament</label>
-    </div>
-    <div class="checkbox-group">
-      <input type="checkbox" id="pensionar" />
-      <label for="pensionar">Pensionar</label>
-    </div>
-    <div class="form-buttons">
-      <button type="submit" class="btn-save">Salvează</button>
-      <button type="button" id="closeModal" class="btn-cancel">Anulează</button>
-    </div>
-  </form>
-</div>
+  </div>
 
   <script src="locatori.js"></script>
 </body>
