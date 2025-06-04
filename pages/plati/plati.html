@@ -1,61 +1,118 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <title>Plăți</title>
-    <link rel="stylesheet" href="plati.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plăți</title>
+  <link rel="stylesheet" href="plati.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header class="header">
-        <nav>
-            <ul>
-                <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
-                <li><a href="../locatori/locatori.html">Locatari</a></li>
-                <li><a href="../apartamente/apartamente.html">Apartamente</a></li>
-                <li><a href="../servicii/servicii.html">Servicii</a></li>
-                <li><a href="../plati/plati.html" style="color:rgb(96, 93, 93)">Plăți</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="header">
+    <nav>
+      <ul>
+        <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
+        <li><a href="../locatori/locatori.html">Locatari</a></li>
+        <li><a href="../apartamente/apartamente.html">Apartamente</a></li>
+        <li><a href="../servicii/servicii.html">Servicii</a></li>
+        <li><a href="../plati/plati.html" style="color:rgb(96, 93, 93)">Plăți</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <div id="plataFormContainer" class="modal-content" style="display: none;">
-        <form id="plataForm">
-            <div class="form-group">
-                <input type="number" id="id_apartament" placeholder="ID Apartament" required />
-            </div>
-            <div class="form-group">
-                <input type="number" id="id_serviciu" placeholder="ID Serviciu" required />
-            </div>
-            <div class="form-group">
-                <input type="number" step="0.01" id="suma" placeholder="Sumă" required />
-            </div>
-            <div class="form-group">
-                <input type="text" id="luna" placeholder="Luna (ex: 2025-06)" required />
-            </div>
-            <div class="form-buttons">
-                <button type="submit" class="btn-save">Salvează</button>
-                <button type="button" id="cancelBtn">Anulează</button>
-            </div>
-        </form>
-    </div>
+  <div class="container">
+    <button id="addPlataBtn" class="add-button">
+      <i class="fas fa-plus"></i> Adaugă Plată
+    </button>
+  </div>
 
-    <div class="top-controls">
-        <button id="addBtn" class="btn-add">Adaugă plată</button>
-    </div>
-
+  <div class="table-container">
     <table class="plati-table">
-        <thead>
-            <tr>
-                <th>Apartament</th>
-                <th>Serviciu</th>
-                <th>Sumă</th>
-                <th>Luna</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="platiTable"></tbody>
+      <thead>
+        <tr>
+          <th>Apartament</th>
+          <th>Serviciu</th>
+          <th>Sumă</th>
+          <th>Luna</th>
+          <th>Acțiuni</th>
+        </tr>
+      </thead>
+      <tbody id="platiTableBody">
+        <tr>
+          <td colspan="5" class="loading">Se încarcă datele...</td>
+        </tr>
+      </tbody>
     </table>
+  </div>
 
-    <script src="plati.js"></script>
+  <!-- Modal pentru adăugare/editare -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Adaugă Plată</h3>
+        <button type="button" class="close-btn" id="closeModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form id="plataForm">
+        <div class="form-body">
+          <div class="select-group">
+            <select id="apartament" required>
+              <option value="">Selectează apartamentul...</option>
+            </select>
+            <label for="apartament">Apartament</label>
+          </div>
+          
+          <div class="select-group">
+            <select id="serviciu" required>
+              <option value="">Selectează serviciul...</option>
+            </select>
+            <label for="serviciu">Serviciu</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="number" id="suma" required placeholder=" " min="0" step="0.01" />
+            <label for="suma">Sumă (lei)</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="month" id="luna" required placeholder=" " />
+            <label for="luna">Luna</label>
+          </div>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Salvează
+          </button>
+          <button type="button" id="cancelBtn" class="btn-cancel">
+            <i class="fas fa-times"></i> Anulează
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal pentru confirmare ștergere -->
+  <div id="confirmModal" class="modal">
+    <div class="confirm-content">
+      <div class="confirm-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3>Confirmare ștergere</h3>
+      <p>Sigur vrei să ștergi această plată?</p>
+      <div class="confirm-buttons">
+        <button id="confirmDelete" class="btn-delete">
+          <i class="fas fa-trash"></i> Șterge
+        </button>
+        <button id="cancelDelete" class="btn-cancel">
+          <i class="fas fa-times"></i> Anulează
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="plati.js"></script>
 </body>
 </html>
