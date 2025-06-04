@@ -566,3 +566,22 @@ body {
     padding: 6px;
   }
 }
+
+/* Status badges */
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.da {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.nu {
+  background-color: #f8d7da;
+  color: #721c24;
+}

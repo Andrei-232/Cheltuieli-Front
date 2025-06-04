@@ -96,7 +96,7 @@ function renderTable() {
       <td>${escapeHtml(locatar.cnp)}</td>
       <td>${locatar.varsta}</td>
       <td>
-        <span class="status-badge ${locatar.pensionar ? "pensionar" : "activ"}">
+        <span class="status-badge ${locatar.pensionar ? "da" : "nu"}">
           ${locatar.pensionar ? "Da" : "Nu"}
         </span>
       </td>
@@ -454,6 +454,7 @@ function initializeApp() {
   if (confirmDeleteBtn) confirmDeleteBtn.addEventListener("click", deleteLocatar)
   if (cancelDeleteBtn) cancelDeleteBtn.addEventListener("click", closeConfirmModal)
 
+  // Închidere modal la click pe backdrop
   if (modal) {
     modal.addEventListener("click", function (e) {
       if (e.target === this) {

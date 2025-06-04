@@ -1,76 +1,113 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <title>Apartamente</title>
-    <link rel="stylesheet" href="apartamente.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartamente</title>
+  <link rel="stylesheet" href="apartamente.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header class="header">
-        <nav>
-            <ul>
-                <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
-                <li><a href="../locatori/locatori.html">Locatari</a></li>
-                <li><a href="../apartamente/apartamente.html" style="color:rgb(96, 93, 93)">Apartamente</a></li>
-                <li><a href="../servicii/servicii.html">Servicii</a></li>
-                <li><a href="../plati/plati.html">Plăți</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="header">
+    <nav>
+      <ul>
+        <li><a href="../cheltuieli/cheltuieli.html">Cheltuieli Bloc</a></li>
+        <li><a href="../locatori/locatori.html">Locatari</a></li>
+        <li><a href="../apartamente/apartamente.html" style="color:rgb(96, 93, 93)">Apartamente</a></li>
+        <li><a href="../servicii/servicii.html">Servicii</a></li>
+        <li><a href="../plati/plati.html">Plăți</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <!-- Adăugat ID pentru containerul formularului -->
-    <div id="apartmentFormContainer" class="modal-content" style="display: none;">
-        <form id="apartmentForm">
-            <div class="form-group">
-                <input type="text" id="numar" placeholder="Număr apartament" required />
-            </div>
-            <div class="form-group">
-                <input type="text" id="etaj" placeholder="Etajul apartamentului" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="suprafata" placeholder="Suprafața" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="numar_camere" placeholder="Numărul de camere" required>
-            </div>
-            <div class="form-group checkbox-group">
-                <label class="styled-checkbox">
-                    <input type="checkbox" id="incCentr">
-                    <span class="checkmark"></span>
-                    Încălzire centralizată
-                </label>
-                <label class="styled-checkbox">
-                    <input type="checkbox" id="incAuto">
-                    <span class="checkmark"></span>
-                    Încălzire autonomă
-                </label>
-            </div>
-            <div class="form-buttons">
-                <button type="submit" class="btn-save">Salvează</button>
-                <button type="button" id="cancelBtn">Anulează</button>
-            </div>
-        </form>
-    </div>
+  <div class="container">
+    <button id="addApartmentBtn" class="add-button">
+      <i class="fas fa-plus"></i> Adaugă Apartament
+    </button>
+  </div>
 
-    <div class="top-controls">
-       <button id="addBtn" class="btn-add">Adaugă apartament</button>
-    </div>
-
+  <div class="table-container">
     <table class="apartamente-table">
-        <thead>
-            <tr>
-                <th>Numărul</th>
-                <th>Etajul</th>
-                <th>Suprafața</th>
-                <th>Numărul de camere</th>
-                <th>Centralizată</th>
-                <th>Autonomă</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="apartamenteTable"></tbody>
+      <thead>
+        <tr>
+          <th>Numărul</th>
+          <th>Etajul</th>
+          <th>Suprafața (m²)</th>
+          <th>Nr. Camere</th>
+          <th>Centralizată</th>
+          <th>Autonomă</th>
+          <th>Acțiuni</th>
+        </tr>
+      </thead>
+      <tbody id="apartamenteTableBody">
+        <tr>
+          <td colspan="7" class="loading">Se încarcă datele...</td>
+        </tr>
+      </tbody>
     </table>
+  </div>
 
-    <script src="apartamente.js"></script>
+  <!-- Modal pentru adăugare/editare -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modal-title">Adaugă Apartament</h3>
+        <button type="button" class="close-btn" id="closeModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      
+      <form id="apartmentForm">
+        <div class="form-body">
+          <div class="input-group">
+            <input type="number" id="numar" required placeholder=" " min="1" />
+            <label for="numar">Numărul apartamentului</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="number" id="etaj" required placeholder=" " min="0" />
+            <label for="etaj">Etajul</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="number" id="suprafata" required placeholder=" " min="1" step="0.1" />
+            <label for="suprafata">Suprafața (m²)</label>
+          </div>
+          
+          <div class="input-group">
+            <input type="number" id="numarCamere" required placeholder=" " min="1" />
+            <label for="numarCamere">Numărul de camere</label>
+          </div>
+          
+          <div class="checkbox-group">
+            <label class="styled-checkbox">
+              <input type="checkbox" id="incalzireCentralizata" />
+              <span class="checkmark"></span>
+              Încălzire centralizată
+            </label>
+          </div>
+          
+          <div class="checkbox-group">
+            <label class="styled-checkbox">
+              <input type="checkbox" id="incalzireAutonoma" />
+              <span class="checkmark"></span>
+              Încălzire autonomă
+            </label>
+          </div>
+        </div>
+        
+        <div class="form-buttons">
+          <button type="submit" class="btn-save">
+            <i class="fas fa-save"></i> Salvează
+          </button>
+          <button type="button" id="cancelBtn" class="btn-cancel">
+            <i class="fas fa-times"></i> Anulează
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="apartamente.js"></script>
 </body>
 </html>
