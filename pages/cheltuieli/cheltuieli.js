@@ -1,12 +1,7 @@
-// JavaScript simplu pentru cheltuieli.html - FĂRĂ IMPORT STATEMENTS
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Pagina s-a încărcat, încep să încarc datele...")
-
-  // Încărcarea statisticilor existente
   loadTotalApartments()
   loadTotalPlati()
-
-  // Încărcarea datelor pentru diagramă
   loadChartData()
 })
 
@@ -206,7 +201,7 @@ function createChart(apiData) {
           displayColors: true,
           callbacks: {
             title: (context) => {
-              return context[0].label // Numele lunii
+              return context[0].label
             },
             label: (context) => context.dataset.label + ": " + context.parsed.y.toLocaleString() + " lei",
             afterLabel: (context) => "Luna: " + context.label,
@@ -250,15 +245,14 @@ function createChart(apiData) {
             color: "#666",
           },
           min: 0,
-          // Eliminat max: 50 pentru a permite scalare automată
           ticks: {
-            stepSize: 500, // Pas de 500 lei pentru valori mari
+            stepSize: 500,
             font: {
               size: 11,
             },
             color: "#666",
             callback: (value) => {
-              // Formatează valorile mari cu separatori de mii
+
               return value.toLocaleString() + " lei"
             },
           },

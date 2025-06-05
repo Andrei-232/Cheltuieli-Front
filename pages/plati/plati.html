@@ -19,13 +19,11 @@
       </ul>
     </nav>
   </header>
-
   <div class="container">
     <button id="addPlataBtn" class="add-button">
       <i class="fas fa-plus"></i> Adaugă Plată
     </button>
   </div>
-
   <div class="table-container">
     <table class="plati-table">
       <thead>
@@ -44,8 +42,6 @@
       </tbody>
     </table>
   </div>
-
-  <!-- Modal pentru adăugare/editare -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -54,7 +50,6 @@
           <i class="fas fa-times"></i>
         </button>
       </div>
-      
       <form id="plataForm">
         <div class="form-body">
           <div class="select-group">
@@ -63,25 +58,21 @@
             </select>
             <label for="apartament">Apartament</label>
           </div>
-          
           <div class="select-group">
             <select id="serviciu" required>
               <option value="">Selectează serviciul...</option>
             </select>
             <label for="serviciu">Serviciu</label>
           </div>
-          
           <div class="input-group">
             <input type="number" id="suma" required placeholder=" " min="0" step="0.01" />
             <label for="suma">Sumă (lei)</label>
           </div>
-          
           <div class="input-group">
             <input type="month" id="luna" required placeholder=" " />
             <label for="luna">Luna</label>
           </div>
         </div>
-        
         <div class="form-buttons">
           <button type="submit" class="btn-save">
             <i class="fas fa-save"></i> Salvează
@@ -93,8 +84,6 @@
       </form>
     </div>
   </div>
-
-  <!-- Modal pentru confirmare ștergere -->
   <div id="confirmModal" class="modal">
     <div class="confirm-content">
       <div class="confirm-icon">
@@ -112,7 +101,6 @@
       </div>
     </div>
   </div>
-
   <script src="plati.js"></script>
 </body>
 </html>

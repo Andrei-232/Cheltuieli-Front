@@ -19,13 +19,11 @@
       </ul>
     </nav>
   </header>
-
   <div class="container">
     <button id="addLocatarBtn" class="add-button">
       <i class="fas fa-plus"></i> Adaugă Locatar
     </button>
   </div>
-
   <div class="table-container">
     <table class="locatari-table">
       <thead>
@@ -45,8 +43,6 @@
       </tbody>
     </table>
   </div>
-
-  <!-- Modal pentru adăugare/editare -->
   <div id="modal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -54,32 +50,27 @@
         <button type="button" class="close-btn" id="closeModal">
           <i class="fas fa-times"></i>
         </button>
-      </div>
-      
+      </div>      
       <form id="locatarForm">
         <div class="form-body">
           <div class="input-group">
             <input type="text" id="nume" required placeholder=" " />
             <label for="nume">Nume complet</label>
-          </div>
-          
+          </div>          
           <div class="input-group">
             <input type="text" id="cnp" required placeholder=" " maxlength="13" />
             <label for="cnp">CNP</label>
-          </div>
-          
+          </div>          
           <div class="input-group">
             <input type="number" id="varsta" required placeholder=" " min="1" max="120" />
             <label for="varsta">Vârstă</label>
-          </div>
-          
+          </div>          
           <div class="select-group">
             <select id="apartament" required>
               <option value="">Selectează apartamentul...</option>
             </select>
             <label for="apartament">Apartament</label>
-          </div>
-          
+          </div>   
           <div class="checkbox-group">
             <label class="styled-checkbox">
               <input type="checkbox" id="pensionar" />
@@ -88,7 +79,6 @@
             </label>
           </div>
         </div>
-        
         <div class="form-buttons">
           <button type="submit" class="btn-save">
             <i class="fas fa-save"></i> Salvează
@@ -100,8 +90,6 @@
       </form>
     </div>
   </div>
-
-  <!-- Modal pentru confirmare ștergere -->
   <div id="confirmModal" class="modal">
     <div class="confirm-content">
       <div class="confirm-icon">
@@ -119,7 +107,6 @@
       </div>
     </div>
   </div>
-
   <script src="locatori.js"></script>
 </body>
 </html>
